@@ -14,11 +14,10 @@ jobs:
           python-version: "3.11"
       - run: python3 collect.py
       - name: Commit & Push
-        env:
-          PAT: ${{ secrets.PAT }}
         run: |
           git config user.name "bot"
           git config user.email "bot@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/fushuain-collab/free-nodes.git
           git add sub.txt
           git diff --cached --quiet || git commit -m "Auto update $(date -u +%Y-%m-%d)"
-          git push https://${PAT}@github.com/fushuain-collab/free-nodes.git HEAD:main
+          git push origin HEAD:main
